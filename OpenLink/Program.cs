@@ -1,3 +1,9 @@
+using OpenLink.Services;
+using System.Text;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
+using Microsoft.VisualBasic;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,4 +28,17 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+var llmService = new LLMService();
+llmService.main();
+/*
+# pragma warning disable SKEXP0010
+var kernelBuilder = Kernel.CreateBuilder()
+            .AddOpenAIChatCompletion(
+                modelId: "phi3",
+                apiKey: null,
+                endpoint: new Uri("http://localhost:11434")
+                );
+var kernel = kernelBuilder.Build();
+# pragma warning restore SKEXP0010
+*/
 app.Run();

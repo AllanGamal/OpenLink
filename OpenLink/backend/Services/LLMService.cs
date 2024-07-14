@@ -1,40 +1,56 @@
+using System.Text;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
+using Microsoft.VisualBasic;
+
 namespace OpenLink.Services
 {
     public class LLMService
     {
-        private readonly List<LLMModel> _llms = new List<LLMModel>();
 
-        public IEnumerable<LLMModel> GetAllLLMs()
+#pragma warning disable SKEXP0010 // Disable the warning for experimental API usage
+        public Kernel InitializeKernel()
         {
-            return _llms;
+            var kernelBuilder = Kernel.CreateBuilder()
+            .AddOpenAIChatCompletion(
+                modelId: "phi3:medium-128k",
+                apiKey: null,
+                endpoint: new Uri("http://localhost:11434")
+                );
+            var kernel = kernelBuilder.Build();
+            return kernel;
         }
 
-        public LLMModel GetLLMById(int id)
-        {
-            return _llms.FirstOrDefault(l => l.Id == id);
-        }
 
-        public void CreateLLM(LLMModel llm)
+        public async void main()
         {
-            _llms.Add(llm);
-        }
+            Kernel k = InitializeKernel();
+            var ai = k.GetRequiredService<IChatCompletionService>();
+            ChatHistory chatHistory = new ("You are an AI assistant that helps me with my work.");
+            StringBuilder sb = new();
+            
+            Console.WriteLine("Question: ");
+            var question = Console.ReadLine();
 
-        public void UpdateLLM(LLMModel llm)
-        {
-            var existingLLM = GetLLMById(llm.Id);
-            if (existingLLM != null)
+            while (question != "exit")
             {
-                existingLLM.Data = llm.Data;
-            }
-        }
+                chatHistory.AddUserMessage(question);
+                sb.Clear();
 
-        public void DeleteLLM(int id)
-        {
-            var llm = GetLLMById(id);
-            if (llm != null)
-            {
-                _llms.Remove(llm);
+                await foreach (var message in ai.GetStreamingChatMessageContentsAsync(chatHistory, kernel: k)) 
+                {
+                    Console.Write(message);
+                    sb.AppendLine(message.Content);
+                }
+            Console.WriteLine();
+            Console.WriteLine();
+            chatHistory.AddAssistantMessage(sb.ToString());
+            Console.WriteLine("Question: ");
+            question = Console.ReadLine();
             }
-        }
+
+            
     }
+}
 }
