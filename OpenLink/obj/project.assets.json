@@ -465,11 +465,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/allangamal/Documents/OpenLink/OpenLink/OpenLink.csproj",
+      "projectUniqueName": "/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/OpenLink.csproj",
       "projectName": "OpenLink",
-      "projectPath": "/Users/allangamal/Documents/OpenLink/OpenLink/OpenLink.csproj",
+      "projectPath": "/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/OpenLink.csproj",
       "packagesPath": "/Users/allangamal/.nuget/packages/",
-      "outputPath": "/Users/allangamal/Documents/OpenLink/OpenLink/obj/",
+      "outputPath": "/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/allangamal/.nuget/NuGet/NuGet.Config"
