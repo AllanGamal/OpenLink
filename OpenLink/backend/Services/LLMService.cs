@@ -1,56 +1,98 @@
 using System.Text;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
-using Microsoft.VisualBasic;
+using Python.Runtime;
+
 
 namespace OpenLink.Services
 {
     public class LLMService
     {
 
+        private string? apiKey;
+        private string modelId;
+        private string endpoint;
+
+        public LLMService(string? apiKey = null, string modelId = "phi3:medium-128k", string endpoint = "http://localhost:11434")
+        {
+            this.apiKey = apiKey;
+            this.modelId = modelId;
+            this.endpoint = endpoint;
+        }
+
 #pragma warning disable SKEXP0010 // Disable the warning for experimental API usage
         public Kernel InitializeKernel()
         {
+            
             var kernelBuilder = Kernel.CreateBuilder()
             .AddOpenAIChatCompletion(
-                modelId: "phi3:medium-128k",
-                apiKey: null,
-                endpoint: new Uri("http://localhost:11434")
+                modelId: modelId,
+                apiKey: this.apiKey,
+                endpoint: new Uri(this.endpoint)
                 );
             var kernel = kernelBuilder.Build();
             return kernel;
         }
 
-
-        public async void main()
+        public async Task<string> GetChatResponseAsync(string question, ChatHistory chatHistory)
         {
-            Kernel k = InitializeKernel();
-            var ai = k.GetRequiredService<IChatCompletionService>();
-            ChatHistory chatHistory = new ("You are an AI assistant that helps me with my work.");
-            StringBuilder sb = new();
-            
-            Console.WriteLine("Question: ");
-            var question = Console.ReadLine();
+            Kernel kernel = InitializeKernel();
+            var ai = kernel.GetRequiredService<IChatCompletionService>();
+
+            chatHistory.AddUserMessage(question);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            await foreach (var message in ai.GetStreamingChatMessageContentsAsync(chatHistory, kernel: kernel))
+            {
+                stringBuilder.Append(message.Content);
+            }
+
+            var fullResponse = stringBuilder.ToString();
+            chatHistory.AddAssistantMessage(fullResponse);
+
+            return fullResponse;
+        }
+
+        public async Task RunChatSessionAsync()
+        {
+            var question = "";
 
             while (question != "exit")
             {
-                chatHistory.AddUserMessage(question);
-                sb.Clear();
-
-                await foreach (var message in ai.GetStreamingChatMessageContentsAsync(chatHistory, kernel: k)) 
-                {
-                    Console.Write(message);
-                    sb.AppendLine(message.Content);
-                }
-            Console.WriteLine();
-            Console.WriteLine();
-            chatHistory.AddAssistantMessage(sb.ToString());
-            Console.WriteLine("Question: ");
+                Console.WriteLine("Question: ");
             question = Console.ReadLine();
+            Task<string> fullResponse = GetChatResponseAsync(question, new ChatHistory());
+            Console.WriteLine("Response: ");
+            Console.WriteLine(await fullResponse);
+            Console.WriteLine();
+               
             }
+        }
 
+        public static void GetStringFromPy()
+        {
+            dynamic script = Py.Import("OpenLink/backend/Services/llmservice");
+            string response = script.example("Allan").ToString();
+            Console.WriteLine(response);
             
+        }
+
+
+        public static void Main()
+    {
+        
+
+            Runtime.PythonDLL = "/opt/homebrew/Cellar/python@3.8/3.8.19/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib";
+
+        
+            PythonEngine.Initialize();
+            using (Py.GIL())
+        {
+            /*await RunChatSessionAsync();*/
+            GetStringFromPy();
+        }
+
+        }
     }
 }
-}
+    
