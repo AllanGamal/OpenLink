@@ -31,22 +31,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-static void GetStringFromPy()
-{
-    // print all the files within this dir
-    
-    PythonEngine.Exec("from llmservice import example; example('hello')");
 
-}
-
-         
-         
             
         
 
 
 /*await RunChatSessionAsync();*/
-LLMService.GetStringFromPy();
+LLMService.Main();
         
 
 
