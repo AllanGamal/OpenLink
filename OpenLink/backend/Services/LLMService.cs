@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Python.Runtime;
+using System;
 
 
 namespace OpenLink.Services
@@ -71,10 +72,18 @@ namespace OpenLink.Services
 
         public static void GetStringFromPy()
         {
-            dynamic script = Py.Import("OpenLink/backend/Services/llmservice");
-            string response = script.example("Allan").ToString();
-            Console.WriteLine(response);
-            
+          
+            Runtime.PythonDLL = "/opt/homebrew/Cellar/python@3.8/3.8.19/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib";
+            PythonEngine.Initialize();
+            using (Py.GIL())
+            {
+                dynamic sys = Py.Import("sys");
+                sys.path.append(Directory.GetCurrentDirectory());
+                dynamic pythonScript = Py.Import("llmservice");
+                string result = pythonScript.example("hello");
+                Console.WriteLine(result);
+                
+            }
         }
 
 
