@@ -1,8 +1,4 @@
-using System.Text;
-using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.ChatCompletion;
 using Python.Runtime;
-using System;
 
 
 namespace OpenLink.Services
@@ -10,98 +6,72 @@ namespace OpenLink.Services
     public class LLMService
     {
 
-        private string? apiKey;
         private string modelId;
-        private string endpoint;
+        private static string chatHistory;
+        private static string llm = "llama3:8b";
 
-        public LLMService(string? apiKey = null, string modelId = "phi3:medium-128k", string endpoint = "http://localhost:11434")
+        // get set
+
+        // get and set
+        static LLMService()
         {
-            this.apiKey = apiKey;
-            this.modelId = modelId;
-            this.endpoint = endpoint;
-        }
-
-#pragma warning disable SKEXP0010 // Disable the warning for experimental API usage
-        public Kernel InitializeKernel()
-        {
-            
-            var kernelBuilder = Kernel.CreateBuilder()
-            .AddOpenAIChatCompletion(
-                modelId: modelId,
-                apiKey: this.apiKey,
-                endpoint: new Uri(this.endpoint)
-                );
-            var kernel = kernelBuilder.Build();
-            return kernel;
-        }
-
-        public async Task<string> GetChatResponseAsync(string question, ChatHistory chatHistory)
-        {
-            Kernel kernel = InitializeKernel();
-            var ai = kernel.GetRequiredService<IChatCompletionService>();
-
-            chatHistory.AddUserMessage(question);
-            StringBuilder stringBuilder = new StringBuilder();
-
-            await foreach (var message in ai.GetStreamingChatMessageContentsAsync(chatHistory, kernel: kernel))
-            {
-                stringBuilder.Append(message.Content);
-            }
-
-            var fullResponse = stringBuilder.ToString();
-            chatHistory.AddAssistantMessage(fullResponse);
-
-            return fullResponse;
-        }
-
-        public async Task RunChatSessionAsync()
-        {
-            var question = "";
-
-            while (question != "exit")
-            {
-                Console.WriteLine("Question: ");
-            question = Console.ReadLine();
-            Task<string> fullResponse = GetChatResponseAsync(question, new ChatHistory());
-            Console.WriteLine("Response: ");
-            Console.WriteLine(await fullResponse);
-            Console.WriteLine();
-               
-            }
-        }
-
-        public static void GetStringFromPy()
-        {
-          
-            Runtime.PythonDLL = "/opt/homebrew/Cellar/python@3.8/3.8.19/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib";
+            Runtime.PythonDLL = "/opt/homebrew/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/lib/libpython3.11.dylib";
             PythonEngine.Initialize();
+        }
+        public static string LLM
+        {
+            get => llm;
+            set => llm = value;
+        }
+        
+
+
+        public static void QueryLLM(string query)
+        {
+
             using (Py.GIL())
             {
                 dynamic sys = Py.Import("sys");
-                sys.path.append(Directory.GetCurrentDirectory());
-                dynamic pythonScript = Py.Import("llmservice");
-                string result = pythonScript.example("hello");
+                sys.path.append(Directory.GetCurrentDirectory() + "/backend/Services");
+                dynamic pythonScript = Py.Import("LLMService");
+                chatHistory += "User: " + query + "\n";
+
+                string result = pythonScript.askLLMAndGetResponse(chatHistory, LLM);
+
+                chatHistory += "LLM: " + result + "\n";
+                Console.WriteLine();
+                Console.WriteLine("Response: ");
                 Console.WriteLine(result);
-                
+
+
+            }
+
+        }
+
+        // get set llm
+        
+
+        private static void ConversationMode()
+        {
+            {
+                // add query from terminal
+                string? query = "";
+                while (query != "exit")
+                {
+                    Console.WriteLine("--------------------------------------");
+                    Console.WriteLine("Query:");
+                    query = Console.ReadLine();
+                    QueryLLM(query);
+                }
+                Console.WriteLine(chatHistory);
+
             }
         }
-
-
-        public static void Main()
-    {
-        
-
-            Runtime.PythonDLL = "/opt/homebrew/Cellar/python@3.8/3.8.19/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib";
-
-        
-            PythonEngine.Initialize();
-            using (Py.GIL())
-        {
-            /*await RunChatSessionAsync();*/
-            GetStringFromPy();
-        }
-
-        }
-    }
-}
+            public static void Main()
+            {
+                LLM = "phi3:medium-128k";
+                ConversationMode();
+            }
     
+}
+}
