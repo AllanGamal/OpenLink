@@ -6,8 +6,7 @@ namespace OpenLink.Services
     public class LLMService
     {
 
-        private string modelId;
-        private static string chatHistory;
+        private static string chatHistory = "";
         private static string llm = "llama3:8b";
 
         // get set
@@ -69,7 +68,7 @@ namespace OpenLink.Services
         }
             public static void Main()
             {
-                LLM = "phi3:medium-128k";
+                
                 ConversationMode();
             }
     

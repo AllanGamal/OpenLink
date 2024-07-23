@@ -5,6 +5,7 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.VisualBasic;
 using Python.Runtime;
+using OpenLink.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,8 @@ app.MapControllers();
 
 
 /*await RunChatSessionAsync();*/
+
+
 LLMService.Main();
         
 
