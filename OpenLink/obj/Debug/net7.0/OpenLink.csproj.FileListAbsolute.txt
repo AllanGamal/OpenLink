@@ -55,3 +55,4 @@
 /Users/allangamal/Documents/GitHub/OpenLink/OpenLink/obj/Debug/net7.0/OpenLink.genruntimeconfig.cache
 /Users/allangamal/Documents/GitHub/OpenLink/OpenLink/obj/Debug/net7.0/ref/OpenLink.dll
 /Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/Python.Runtime.dll
+/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/backend/Data/ShortTermMemory.json

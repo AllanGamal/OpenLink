@@ -1,0 +1,106 @@
+[
+  {
+    "Id": "2024-07-23T18:27:0",
+    "Msg": "User: \n lets play 21 questions \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:27:1",
+    "Msg": "LLM(you): \n Okay! I'm thinking of something.  \n\nYou can ask up to 21 yes/no questions to figure out what it is.\n\nWhat's your first question? \uD83E\uDD14 \n \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:28:0",
+    "Msg": "User: \n no, i thjok of something. u ask \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:28:1",
+    "Msg": "LLM(you): \n Okay!  \n\nIs it an animal? \uD83D\uDC36\uD83D\uDC31\uD83D\uDC30  \n \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:33:0",
+    "Msg": "User: \n 21 questions. You ask. Start with \"q1:\" and so on \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:33:1",
+    "Msg": "LLM(you): \n Okay, I understand! Let's play.\n\nq1: Is it animal? \uD83D\uDC36\uD83D\uDC31\uD83D\uDC30  \n\n\nLet me know your answer! \uD83D\uDE0A \n \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:33:2",
+    "Msg": "User: \n no \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:33:3",
+    "Msg": "LLM(you): \n q2: Is it a plant? \uD83C\uDF3F\uD83C\uDF33\uD83C\uDF38 \n \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:33:4",
+    "Msg": "User: \n no \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:33:5",
+    "Msg": "LLM(you): \n q3: Is it an object? \uD83D\uDEE0️\uD83C\uDFE0\uD83D\uDE97  \n\n\nLet me know your answer! \uD83D\uDE0A \n \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:33:6",
+    "Msg": "User: \n yes \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:33:7",
+    "Msg": "LLM(you): \n q4: Is it something you would find indoors? \uD83D\uDECB️\uD83D\uDCFA\uD83D\uDCA1 \n\n\nLet me know your answer! \uD83D\uDE0A  \n \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:33:8",
+    "Msg": "User: \n yes \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:33:9",
+    "Msg": "LLM(you): \n q5: Is it used for cooking or eating? \uD83C\uDF7D️\uD83D\uDD2A\uD83E\uDD63 \n\n\n\nLet me know your answer! \uD83D\uDE0A \n \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:39:0",
+    "Msg": "User: \n lets restart \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:39:1",
+    "Msg": "LLM(you): \n Okay, let's start fresh!  \n\nq1: Is it an animal? \uD83D\uDC36\uD83D\uDC31\uD83D\uDC30 \n \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:39:2",
+    "Msg": "User: \n no \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:40:0",
+    "Msg": "LLM(you): \n Here are a few ways to handle the user restarting the game:\n\n**Option 1: Reset and Forget**\n\nSimply start over, forgetting any previous questions. This is the simplest approach.\n\n```\nLLM(you): Okay, let's start fresh!  \nq1: Is it an animal? \uD83D\uDC36\uD83D\uDC31\uD83D\uDC30 \n```\n\n**Option 2: Acknowledge and Restart**\n\nLet the user know you're resetting but remember their preference for them to think of something.\n\n```\nLLM(you): No problem, we can start over! I'm ready for a new challenge.  \n\nq1: Is it an animal? \uD83D\uDC36\uD83D\uDC31\uD83D\uDC30 \n```\n\n**Option 3:  Be Playful (Optional)**\n\nAdd a touch of personality to the reset.\n\n\n```\nLLM(you): Ooh, changing your mind already? That's okay, I like a good mystery! Let's play again.\n\nq1: Is it an animal? \uD83D\uDC36\uD83D\uDC31\uD83D\uDC30 \n```\n\n\n\nLet me know if you want to explore other ways to handle this interaction! \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:40:1",
+    "Msg": "User: \n no, not an animal. go to q2 now \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:40:2",
+    "Msg": "LLM(you): \n q2: Is it a plant? \uD83C\uDF3F\uD83C\uDF33\uD83C\uDF38  \n\n\nLet me know your answer! \uD83D\uDE0A \n \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:40:3",
+    "Msg": "User: \n yes \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:40:4",
+    "Msg": "LLM(you): \n You're right! Since the user said \"no, not an animal. go to q2 now\", we should skip question 1 and move directly to question 2.\n\n\nLLM(you): q2: Is it a plant? \uD83C\uDF3F\uD83C\uDF33\uD83C\uDF38  \n\nLet me know your answer! \uD83D\uDE0A \n \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:42:0",
+    "Msg": "User: \n it is a plant, yes \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:42:1",
+    "Msg": "LLM(you): \n Okay, great! We're narrowing things down.\n\nq3: Is this plant commonly found indoors?  \uD83E\uDEB4\uD83C\uDFE0\n\n\nLet me know your answer! \uD83D\uDE0A \n \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:42:2",
+    "Msg": "User: \n no \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:42:3",
+    "Msg": "LLM(you): \n LLM(you):\n\nq4: Is it a tree? \uD83C\uDF33\uD83C\uDF32\uD83C\uDF34  \n\n\nLet me know your answer! \uD83D\uDE0A  \n \n\n"
+  }
+]

@@ -1,77 +1,55 @@
+using OpenLink.Models;
 using Python.Runtime;
-
+using System;
+using System.IO;
 
 namespace OpenLink.Services
 {
     public class LLMService
     {
+        private readonly ShortTermMemoryService shortTermMemoryService = new();
+        private string chatHistory = "";
+        private string llm = "gemma2:27b";
+        //private static string llm = "llama3:8b";
 
-        private string modelId;
-        private static string chatHistory;
-        private static string llm = "llama3:8b";
-
-        // get set
-
-        // get and set
-        static LLMService()
+       public LLMService()
         {
             Runtime.PythonDLL = "/opt/homebrew/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/lib/libpython3.11.dylib";
             PythonEngine.Initialize();
         }
-        public static string LLM
+
+        public string LLM
         {
             get => llm;
             set => llm = value;
         }
-        
 
-
-        public static void QueryLLM(string query)
+        public string QueryLLM(string query)
         {
-
             using (Py.GIL())
             {
                 dynamic sys = Py.Import("sys");
                 sys.path.append(Directory.GetCurrentDirectory() + "/backend/Services");
                 dynamic pythonScript = Py.Import("LLMService");
-                chatHistory += "User: " + query + "\n";
 
+                shortTermMemoryService.CreateJson(query, "User");
+
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "backend", "Data", "ShortTermMemory.json");
+                string json = File.ReadAllText(path);
+
+                chatHistory = shortTermMemoryService.GetMaxTokens() + "User: " + "\n" + query + "**DONT INCLUDE YOUR ANSWER WITH 'LLM(YOU):'. CONTINUE WITH YOUR ANSWER BASED ON THE HISTORY OF THIS CONVERSATION:**";
                 string result = pythonScript.askLLMAndGetResponse(chatHistory, LLM);
 
-                chatHistory += "LLM: " + result + "\n";
-                Console.WriteLine();
-                Console.WriteLine("Response: ");
-                Console.WriteLine(result);
+                shortTermMemoryService.CreateJson(result, "LLM(you)");
+                chatHistory = shortTermMemoryService.GetMaxTokens();
 
-
+                return result;
             }
-
         }
 
-        // get set llm
-        
-
-        private static void ConversationMode()
+        public string GetChatHistory()
         {
-            {
-                // add query from terminal
-                string? query = "";
-                while (query != "exit")
-                {
-                    Console.WriteLine("--------------------------------------");
-                    Console.WriteLine("Query:");
-                    query = Console.ReadLine();
-                    QueryLLM(query);
-                }
-                Console.WriteLine(chatHistory);
-
-            }
+            return chatHistory;
         }
-            public static void Main()
-            {
-                LLM = "phi3:medium-128k";
-                ConversationMode();
-            }
-    
-}
+    }
 }
