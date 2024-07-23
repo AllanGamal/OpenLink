@@ -7,7 +7,7 @@ namespace OpenLink.Services
 {
     public class LLMService
     {
-        private ShortTermMemoryModel ShortTermMemoryModel = new ShortTermMemoryModel();
+        private readonly ShortTermMemoryService shortTermMemoryService = new();
         private string chatHistory = "";
         private string llm = "gemma2:27b";
         //private static string llm = "llama3:8b";
@@ -32,16 +32,16 @@ namespace OpenLink.Services
                 sys.path.append(Directory.GetCurrentDirectory() + "/backend/Services");
                 dynamic pythonScript = Py.Import("LLMService");
 
-                ShortTermMemoryModel.CreateJson(query, "User");
+                shortTermMemoryService.CreateJson(query, "User");
 
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "backend", "Data", "ShortTermMemory.json");
                 string json = File.ReadAllText(path);
 
-                chatHistory = ShortTermMemoryModel.GetMaxTokens() + "User: " + "\n" + query + "**YOUR ANSWER BASED ON THE HISTORY:**";
+                chatHistory = shortTermMemoryService.GetMaxTokens() + "User: " + "\n" + query + "**DONT INCLUDE YOUR ANSWER WITH 'LLM(YOU):'. CONTINUE WITH YOUR ANSWER BASED ON THE HISTORY OF THIS CONVERSATION:**";
                 string result = pythonScript.askLLMAndGetResponse(chatHistory, LLM);
 
-                ShortTermMemoryModel.CreateJson(result, "LLM(you)");
-                chatHistory = ShortTermMemoryModel.GetMaxTokens();
+                shortTermMemoryService.CreateJson(result, "LLM(you)");
+                chatHistory = shortTermMemoryService.GetMaxTokens();
 
                 return result;
             }
