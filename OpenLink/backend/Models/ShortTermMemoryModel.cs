@@ -8,22 +8,18 @@ namespace OpenLink.Models
 {
     public class ShortTermMemoryModel
     {
+        private const int maxTokens = 8000;
         public ShortTermMemoryModel()
         {
-            
+            // Assuming constructor logic if any
         }
 
-        public string ToJson(MemoryData memoryData)
-        {
-            return JsonSerializer.Serialize(memoryData, new JsonSerializerOptions { WriteIndented = true });
-        }
-
-        public void CreateJson(String msg)
+        public static void CreateJson(string msg, string sender)
         {
             string filePath = "backend/Data/ShortTermMemory.json";
             List<MemoryData>? memoryDataList;
 
-            // Read existing data
+            
             if (File.Exists(filePath))
             {
                 string existingData = File.ReadAllText(filePath);
@@ -42,15 +38,59 @@ namespace OpenLink.Models
             MemoryData newMemoryData = new MemoryData
             {
                 Id = $"{baseId}:{count}",
-                Msg = msg
+                Msg = $"{sender}: \n {msg} \n\n"
             };
             memoryDataList.Add(newMemoryData);
 
             // Serialize and write back to file
-            string stringToWriteToJson = JsonSerializer.Serialize(memoryDataList, new JsonSerializerOptions { WriteIndented = true });
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
+
+            string stringToWriteToJson = JsonSerializer.Serialize(memoryDataList, options);
             File.WriteAllText(filePath, stringToWriteToJson);
         }
+
+        public string GetMaxTokens() {
+
+            string filePath = "backend/Data/ShortTermMemory.json";
+            List<MemoryData>? memoryDataList;
+
+            // Read existing data
+            if (File.Exists(filePath))
+            {
+                string existingData = File.ReadAllText(filePath);
+                memoryDataList = string.IsNullOrEmpty(existingData) ? new List<MemoryData>() : JsonSerializer.Deserialize<List<MemoryData>>(existingData);
+            }
+            else
+            {
+                memoryDataList = new List<MemoryData>();
+            }
+
+            
+            const int charachtersPerToken = 4;
+            const int maxCharachters = maxTokens * charachtersPerToken;
+            string allMsgs = "";
+
+            for (int i = memoryDataList.Count - 1; i >= 0; i--)
+            {
+                allMsgs = memoryDataList[i].Msg + allMsgs;
+                if (i % 10 == 0) {
+                    if (allMsgs.Length > maxCharachters) {
+                        break;
+                    }
+                }
+            }
+
+            return allMsgs;
+        }
+
+       
     }
+
+ 
 
     public class MemoryData
     {

@@ -1,13 +1,17 @@
+using OpenLink.Models;
 using Python.Runtime;
 
 
 namespace OpenLink.Services
 {
+
     public class LLMService
     {
 
+        private static ShortTermMemoryModel ShortTermMemoryModel = new ShortTermMemoryModel(); 
         private static string chatHistory = "";
-        private static string llm = "llama3:8b";
+        private static string llm = "gemma2:27b";
+        //private static string llm = "llama3:8b";
 
         // get set
 
@@ -27,24 +31,29 @@ namespace OpenLink.Services
 
         public static void QueryLLM(string query)
         {
-
+            
             using (Py.GIL())
             {
                 dynamic sys = Py.Import("sys");
                 sys.path.append(Directory.GetCurrentDirectory() + "/backend/Services");
                 dynamic pythonScript = Py.Import("LLMService");
-                chatHistory += "User: " + query + "\n";
+                ShortTermMemoryModel.CreateJson(query , "User");
+                
+                
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "backend", "Data", "ShortTermMemory.json");
+                string json = File.ReadAllText(path);
+
+                chatHistory = ShortTermMemoryModel.GetMaxTokens() +  "User: " + "\n" + query + "**YOUR ANSWER BASED ON THE HISTORY:**";
 
                 string result = pythonScript.askLLMAndGetResponse(chatHistory, LLM);
 
-                chatHistory += "LLM: " + result + "\n";
+                ShortTermMemoryModel.CreateJson(result, "LLM(you)");
+                chatHistory = ShortTermMemoryModel.GetMaxTokens();
                 Console.WriteLine();
-                Console.WriteLine("Response: ");
+                Console.WriteLine("Response:");
                 Console.WriteLine(result);
 
-
             }
-
         }
 
         // get set llm
@@ -52,7 +61,7 @@ namespace OpenLink.Services
 
         private static void ConversationMode()
         {
-            {
+            
                 // add query from terminal
                 string? query = "";
                 while (query != "exit")
@@ -61,10 +70,11 @@ namespace OpenLink.Services
                     Console.WriteLine("Query:");
                     query = Console.ReadLine();
                     QueryLLM(query);
+                    
                 }
                 Console.WriteLine(chatHistory);
 
-            }
+            
         }
             public static void Main()
             {
