@@ -6,6 +6,7 @@ using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.VisualBasic;
 using Python.Runtime;
 using OpenLink.Models;
+using OpenLink.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +41,7 @@ app.MapControllers();
 /*await RunChatSessionAsync();*/
 
 
-LLMService.Main();
+LLMController.Main();
         
 
 

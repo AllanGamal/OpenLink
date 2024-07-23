@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "2024-07-23T18:27:0",
+    "Msg": "User: \n lets play 21 questions \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:27:1",
+    "Msg": "LLM(you): \n Okay! I'm thinking of something.  \n\nYou can ask up to 21 yes/no questions to figure out what it is.\n\nWhat's your first question? \uD83E\uDD14 \n \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:28:0",
+    "Msg": "User: \n no, i thjok of something. u ask \n\n"
+  },
+  {
+    "Id": "2024-07-23T18:28:1",
+    "Msg": "LLM(you): \n Okay!  \n\nIs it an animal? \uD83D\uDC36\uD83D\uDC31\uD83D\uDC30  \n \n\n"
+  }
+]
