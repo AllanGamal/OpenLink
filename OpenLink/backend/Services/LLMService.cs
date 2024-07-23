@@ -28,7 +28,6 @@ namespace OpenLink.Services
         }
         
 
-
         public static void QueryLLM(string query)
         {
             
@@ -55,8 +54,6 @@ namespace OpenLink.Services
 
             }
         }
-
-        // get set llm
         
 
         private static void ConversationMode()
