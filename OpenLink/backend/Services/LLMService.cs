@@ -9,8 +9,8 @@ namespace OpenLink.Services
     {
         private readonly ShortTermMemoryService shortTermMemoryService = new();
         private string chatHistory = "";
-        private string llm = "gemma2:27b";
-        //private static string llm = "llama3:8b";
+        //private string llm = "gemma2:27b";
+        private static string llm = "llama3.1:8b";
 
        public LLMService()
         {
@@ -37,8 +37,8 @@ namespace OpenLink.Services
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "backend", "Data", "ShortTermMemory.json");
                 string json = File.ReadAllText(path);
 
-                chatHistory = shortTermMemoryService.GetMaxTokens() + "User: " + "\n" + query + "**DONT INCLUDE YOUR ANSWER WITH 'LLM(YOU):'. CONTINUE WITH YOUR ANSWER BASED ON THE HISTORY OF THIS CONVERSATION:**";
-                string result = pythonScript.askLLMAndGetResponse(chatHistory, LLM);
+                chatHistory = shortTermMemoryService.GetMaxTokens() + "User: " + "\n" + query;
+                string result = pythonScript.askLLMAndGetResponse(chatHistory + "**DONT INCLUDE YOUR ANSWER WITH 'LLM(YOU):', AND NO NEED TO COMMENT ABOUT THE HISTORY OR THIS. IMPORTANT: JUST CONTINUE WITH YOUR ANSWER BASED ON THE HISTORY OF THIS CONVERSATION LIKE A USUAL CONVERSATION:**", LLM);
 
                 shortTermMemoryService.CreateJson(result, "LLM(you)");
                 chatHistory = shortTermMemoryService.GetMaxTokens();
