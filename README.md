@@ -37,8 +37,8 @@ This project aims to develop an infrastructure for a Large Language Model (LLM) 
 ### 3. Short-Term Memory
 - **Description:** A temporary memory that keeps track of information during an ongoing conversation.
 - **Functionality:**
-  - [ ] **Contextual Understanding:** Keeps track of the conversation's topic and recent exchanges to provide relevant answers.
-  - [ ] **Temporary Notes:** Ability to store and use temporary notes that may be useful during an ongoing session but don't need long-term storage.
+  - [x] **Contextual Understanding:** Keeps track of the conversation's topic and recent exchanges to provide relevant answers.
+  - [] **Temporary Notes:** Ability to store and use temporary notes that may be useful during an ongoing session but don't need long-term storage.
 
 ## Tool Integrations
 
@@ -81,7 +81,7 @@ This project aims to develop an infrastructure for a Large Language Model (LLM) 
   - [ ] Goal Tracking
   - [ ] Continuous Adaptation
 - [ ] Short-Term Memory
-  - [ ] Contextual Understanding
+  - [x] Contextual Understanding
   - [ ] Temporary Notes
 
 ### Tool Integrations
