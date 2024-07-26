@@ -31,7 +31,7 @@ namespace OpenLink.Services
             {
                 dynamic sys = Py.Import("sys");
                 sys.path.append(Directory.GetCurrentDirectory() + "/backend/Services");
-                dynamic pythonScript = Py.Import("LLMService");
+                dynamic pythonScript = Py.Import("llmservice");
 
                 shortTermMemoryService.CreateJson(query, "User");
 
