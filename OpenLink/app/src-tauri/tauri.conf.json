@@ -6,7 +6,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "tauri-app",
+    "productName": "OpenLink",
     "version": "0.0.0"
   },
   "tauri": {
@@ -19,9 +19,9 @@
     },
     "windows": [
       {
-        "title": "tauri-app",
-        "width": 800,
-        "height": 600
+        "title": "OpenLink",
+        "width": 1080,
+        "height": 780
       }
     ],
     "security": {

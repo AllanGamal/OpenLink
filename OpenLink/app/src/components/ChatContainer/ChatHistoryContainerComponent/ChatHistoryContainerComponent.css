@@ -1,0 +1,118 @@
+:root {
+  --primary-background-color: #1e1e1e;
+  --secondary-background-color: #2e2e2e;
+  --primary-text-color: rgb(194, 194, 194);
+  --primary-background-color-hover: #333333;
+  --secondary-background-color-hover: #444444;
+  --primary-text-color-hover: rgb(221, 221, 221);
+}
+
+.chat-history-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+.chat-history-container::-webkit-scrollbar {
+  width: 5px;
+}
+.chat-history-container::-webkit-scrollbar-track {
+  background: var(--secondary-background-color);
+}
+.chat-history-container::-webkit-scrollbar-thumb {
+  background: var(--primary-background-color);
+}
+.chat-history-container::-webkit-scrollbar-thumb:hover {
+  background: #111010;
+}
+.chat-history-container .chat-history-list {
+  background-color: var(--secondary-background-color);
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+.chat-history-container .chat-history-list .chat-user-container {
+  background-color: var(--secondary-background-color);
+  width: 100%;
+  max-width: 1000px;
+  padding: 10px;
+  border: none;
+  border-top: 1px solid var(--secondary-background-color-hover);
+  border-bottom: 1px solid var(--secondary-background-color-hover);
+}
+.chat-history-container .chat-history-list .chat-user-container .item-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: none;
+  letter-spacing: 0.6px;
+  font-weight: 500;
+}
+.chat-history-container .chat-history-list .chat-user-container .source-links-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  padding: -10px;
+  padding-left: 10px;
+  border: none;
+  margin-right: 10px;
+  margin-top: -7px;
+}
+.chat-history-container .chat-history-list .chat-user-container .source-links-container .links {
+  padding-left: 12px;
+  font-size: 0.8em;
+  text-decoration: none;
+  color: rgb(43, 138, 170);
+}
+.chat-history-container .chat-history-list .chat-user-container .source-links-container .links:hover {
+  color: rgba(44, 187, 187, 0.582);
+  cursor: pointer;
+}
+.chat-history-container .chat-history-list .chat-user-container.user {
+  background-color: var(--secondary-background-color);
+  text-align: right;
+}
+.chat-history-container .chat-history-list .chat-user-container.user .App-logo {
+  display: none;
+  height: 50px;
+  margin-left: auto;
+}
+.chat-history-container .chat-history-list .chat-user-container.user .chat-user-logo {
+  margin-left: auto;
+}
+.chat-history-container .chat-history-list .chat-user-container.bot {
+  background-color: rgba(30, 30, 30, 0.4862745098);
+  text-align: left;
+}
+.chat-history-container .chat-history-list .chat-user-container.bot .App-logo {
+  width: 50px;
+}
+.chat-history-container .chat-history-list .chat-user-container .chat-user-logo {
+  width: 60px;
+}
+.chat-history-container .chat-history-list .chat-user-container .chat-user {
+  color: var(--secondary-background-color);
+  width: 100%;
+  max-width: inherit;
+  padding: 10px;
+  border: none;
+  margin-right: 10px;
+  overflow-x: auto;
+}
+.chat-history-container .chat-history-list .chat-user-container .chat-user::-webkit-scrollbar {
+  height: 5px;
+}
+.chat-history-container .chat-history-list .chat-user-container .chat-user::-webkit-scrollbar-track {
+  background: var(--secondary-background-color);
+}
+.chat-history-container .chat-history-list .chat-user-container .chat-user::-webkit-scrollbar-thumb {
+  background: var(--primary-background-color);
+}
+.chat-history-container .chat-history-list .chat-user-container .chat-user .chat-history-textfield {
+  color: var(--primary-text-color);
+  margin: auto;
+}/*# sourceMappingURL=ChatHistoryContainerComponent.css.map */
