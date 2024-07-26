@@ -26,6 +26,7 @@ namespace OpenLink.Services
 
         public string QueryLLM(string query)
         {
+            Console.WriteLine("Query2:");
             using (Py.GIL())
             {
                 dynamic sys = Py.Import("sys");

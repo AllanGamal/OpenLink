@@ -4,12 +4,8 @@ import axios from 'axios';
 import { Message } from '../ChatHistoryContainerComponent/ChatHistoryContainerComponent';
 
 interface Props {
-  // message and type 
   onSendMessage: (message: Message) => void;
-
 }
-
-
 
 function ChatInputContainerComponent({ onSendMessage }: Props) {
   const [message, setMessage] = useState('');
@@ -21,23 +17,31 @@ function ChatInputContainerComponent({ onSendMessage }: Props) {
   };
 
   const toggleLanguage = () => {
-    setIsEnglish(!isEnglish)
-  }
+    setIsEnglish(!isEnglish);
+  };
 
-
-  const handleSendClick = () => {
-    const apiUrl = 'http://localhost:8001/message';
-
+  const handleSendClick = async () => {
+    const apiUrl = 'http://localhost:5105/LLM/query'; // Ändra URL till din backend endpoint
 
     if (message !== '') {
-      onSendMessage({ text: message, type: 'user'});
-      onSendMessage({ text: "message", type: 'bot'});
-      setMessage('');
+      onSendMessage({ text: message, type: 'user' });
+      setIsLoading(true);
+
+      try {
+        const response = await axios.post(apiUrl, { query: message });
+        onSendMessage({ text: response.data, type: 'bot' });
+      } catch (error) {
+        console.error('Error sending message:', error);
+        onSendMessage({ text: 'Error sending message', type: 'bot' });
+      } finally {
+        setIsLoading(false);
+        setMessage('');
+      }
     }
   };
 
   return (
-    <div className="chat-input-container" >
+    <div className="chat-input-container">
       <div className="chat-input-element-container">
         <input
           type="text"
@@ -50,15 +54,10 @@ function ChatInputContainerComponent({ onSendMessage }: Props) {
               handleSendClick();
             }
           }}
-
-        >
-
-        </input>
-        
-        <button type="button" className="btn btn-primary" onClick={handleSendClick} disabled={isLoading} >
+        />
+        <button type="button" className="btn btn-primary" onClick={handleSendClick} disabled={isLoading}>
           {isLoading ? '....' : 'Send'}
         </button>
-        
       </div>
     </div>
   );
