@@ -5,12 +5,6 @@
 /Users/allangamal/Documents/GitHub/OpenLink/OpenLink/obj/Debug/net7.0/OpenLink.csproj.CoreCompileInputs.cache
 /Users/allangamal/Documents/GitHub/OpenLink/OpenLink/obj/Debug/net7.0/OpenLink.MvcApplicationPartsAssemblyInfo.cs
 /Users/allangamal/Documents/GitHub/OpenLink/OpenLink/obj/Debug/net7.0/OpenLink.MvcApplicationPartsAssemblyInfo.cache
-/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/app/package-lock.json
-/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/app/package.json
-/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/app/src-tauri/target/.rustc_info.json
-/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/app/src-tauri/tauri.conf.json
-/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/app/tsconfig.json
-/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/app/tsconfig.node.json
 /Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/appsettings.Development.json
 /Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/appsettings.json
 /Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/OpenLink
@@ -56,3 +50,5 @@
 /Users/allangamal/Documents/GitHub/OpenLink/OpenLink/obj/Debug/net7.0/ref/OpenLink.dll
 /Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/Python.Runtime.dll
 /Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/backend/Data/ShortTermMemory.json
+/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/package-lock.json
+/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/bin/Debug/net7.0/package.json

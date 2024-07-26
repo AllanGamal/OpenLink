@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FileListComponent from '../FileListComponent/FileListComponent';
 import './FileContainerComponent.css';
-import { listen } from '@tauri-apps/api/event'
+
 import axios from 'axios';
 
 
@@ -97,11 +97,12 @@ function FileContainerComponent() {
         console.error(error);
       });
   }
+
   useEffect(() => {
     loadFileList();
   }
     , []);
-
+/*
   useEffect(() => {
     if (deletingCount > 0 || !isOverDropZone) {
       return;
@@ -131,13 +132,13 @@ function FileContainerComponent() {
   
     });
   
-
-
+    
     return () => {
       unlisten.then((fn) => fn());
     };
   }, [deletingCount, isOverDropZone, fileNames]); // Add fileNames as a dependency
-
+  */
+  
   return (
     <div className={`file-container ${isUploading ? 'uploading' : ''}`}>
       <h1 id="file-title">easiDocs</h1>
