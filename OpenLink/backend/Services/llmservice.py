@@ -45,16 +45,11 @@ class LLMService:
         self.short_term_memory_service.create_json(result, "LLM(you)")
         self.chat_history = self.short_term_memory_service.get_max_tokens()
 
-        print("-----------------")
-        print("Chat history:" + self.chat_history)
-        print("-----------------")
+        
 
         return result
     
         
 
-service = LLMService()
-string = service.query_llm("Did we play any game? If so, what did we play?")
-print(string)
 
 
