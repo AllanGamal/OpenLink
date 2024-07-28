@@ -29,7 +29,7 @@ function ChatInputContainerComponent({ onSendMessage }: Props) {
 
       try {
         const response = await axios.post(apiUrl, { query: message });
-        
+        onSendMessage({ text: response.data.response, type: 'bot' });
       } catch (error) {
         console.error('Error sending message:', error);
         onSendMessage({ text: 'Error sending message', type: 'bot' });

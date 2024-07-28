@@ -11,7 +11,7 @@ class ShortTermMemoryModel:
         self.msg = msg
 
 class ShortTermMemoryService:
-    FilePath = "../Data/ShortTermMemory.json"
+    FilePath = "Data/ShortTermMemory.json"
     #FilePath = "backend/Data/ShortTermMemory.json"
 
     def __init__(self):

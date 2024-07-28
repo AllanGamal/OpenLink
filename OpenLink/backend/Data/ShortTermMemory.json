@@ -218,5 +218,129 @@
     {
         "Id": "2024-07-28T16:21:3",
         "Msg": "LLM(you): \n Yes, we played a game of 21 questions earlier. Let's start fresh if you'd like! Would you like to play again or move on to something else? \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:18:0",
+        "Msg": "User: \n hi \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:19:0",
+        "Msg": "User: \n ert \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:19:1",
+        "Msg": "LLM(you): \n Hi! It's nice to meet you again. How are you doing today? \n\n(I'm assuming we're starting fresh and can move on from our previous conversation) \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:19:2",
+        "Msg": "User: \n hi \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:19:3",
+        "Msg": "LLM(you): \n It's nice to meet you again! How are you doing today? \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:21:0",
+        "Msg": "User: \n hi \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:21:1",
+        "Msg": "LLM(you): \n Hi! It's nice to meet you again. How are you doing today? \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:21:2",
+        "Msg": "User: \n tell me a story made of 2 sentences \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:21:3",
+        "Msg": "LLM(you): \n In a tiny village nestled between two great mountains, there lived a young girl named Luna who possessed a magical gift that allowed her to communicate with the creatures of the forest. One day, while exploring the woods, Luna stumbled upon a hidden clearing where she met a wise and ancient owl named Orion who taught her the secrets of the universe. \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:23:0",
+        "Msg": "User: \n hello, how are you \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:23:1",
+        "Msg": "LLM(you): \n I'm doing well, thanks for asking! It's nice to have a friendly conversation with you. How about you? \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:26:0",
+        "Msg": "User: \n tell me a short story \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:26:1",
+        "Msg": "LLM(you): \n A long time ago, in a small village surrounded by a vast ocean, there was a young boy named Kaito who loved to explore the tide pools and beaches. One day, while wandering through the shallow waters, Kaito discovered a hidden cave behind a waterfall, where he found a group of playful dolphins who became his best friends and showed him the secrets of the underwater world. \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:27:0",
+        "Msg": "User: \n tell me a short story about a watch \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:27:1",
+        "Msg": "LLM(you): \n A small, delicate watch had been passed down through generations of a family, each member adding their own personal touch to its intricate mechanisms. One day, while cleaning the house, a young girl named Sophia discovered the watch hidden away in an old box, and as she wound it up, the watch suddenly sprang to life, revealing a secret message that had been encoded within its gears for over a century: \"The time is always right to make a change.\" \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:27:2",
+        "Msg": "User: \n tell me another one \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:27:3",
+        "Msg": "LLM(you): \n A tiny, antique music box had been sitting on a dusty shelf in a small antique shop for as long as anyone could remember. One day, a curious old man named Henry bought the music box and, upon winding it up, was surprised to hear the soft, melancholic tune of a love song that seemed to match his own heart's rhythm exactly. \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:27:4",
+        "Msg": "User: \n I meant about a watch! \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:27:5",
+        "Msg": "LLM(you): \n In that case, here's a short story about a watch:\n\nThe watch had been given to me by my grandfather, who had received it from his grandfather before him. It was an old leather strap watch with intricate engravings on the back, and I loved wearing it every day as a reminder of our family's history and tradition. But one day, while I was cleaning it, I discovered a small inscription on the inside of the case that read: \"To my dear son, may you always keep time with your heart.\" \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:40:0",
+        "Msg": "User: \n hi \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:40:1",
+        "Msg": "LLM(you): \n Hi! How are you doing today? \n\n(I'm assuming we're starting fresh and can move on from our previous conversation) \n\nYou mentioned a story about a watch, and I got sidetracked. Let's get back to it! What would you like the next part of the story to be? \n\nWould you like me to continue the story, or is there something else you'd like to talk about? \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:41:0",
+        "Msg": "User: \n hello \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:41:1",
+        "Msg": "LLM(you): \n It's nice to meet you again! I'm happy to chat with you. So, you wanted me to tell you another short story about a watch? Here it is: \n\nAs I held the watch in my hand and read the inscription on the inside of the case, I felt a strange connection to my grandfather and his grandfather before him. It was as if their memories and stories were etched into the metal, waiting for me to uncover them. Suddenly, the watch's hands began to move on their own, taking me back in time to a moment when my great-grandfather was sitting by the window of our family's old mansion, watching the sunset with his wife. \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:42:0",
+        "Msg": "User: \n hello \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:42:1",
+        "Msg": "LLM(you): \n I'm happy to continue the story! Here's my next part:\n\nAs I watched, a young couple sat together on a bench, holding hands and gazing out at the sunset. They were so in love, just like my grandparents had been when they first met. My great-grandfather turned to his wife and said, \"I promise you, my dear, that as long as this watch keeps time with our hearts, we will always be together.\" And then, just as suddenly as it started, the vision faded away, leaving me back in the present with a sense of wonder and awe. \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:43:0",
+        "Msg": "User: \n hi \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:44:0",
+        "Msg": "LLM(you): \n I'd be happy to continue our conversation! It seems like we were in the middle of a story about a watch. What would you like to happen next? Do you want me to continue with the story or is there something else on your mind that you'd like to talk about? \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:44:1",
+        "Msg": "User: \n hello \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:44:2",
+        "Msg": "LLM(you): \n Let's get back to the story about the watch. You wanted me to continue with the next part, right? Okay, here it is:\n\nAs I sat there holding the watch, I couldn't shake off the feeling that my great-grandfather was trying to tell me something. I looked at the inscription on the inside of the case again, and this time, I noticed a small phrase written in tiny letters: \"The memories we make are what keep us alive.\" Suddenly, it clicked – the watch wasn't just a family heirloom; it was a key to unlocking our collective memories and experiences. \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:44:3",
+        "Msg": "User: \n tell me a short story about a phone \n\n"
+    },
+    {
+        "Id": "2024-07-28T17:44:4",
+        "Msg": "LLM(you): \n As I sat in the old mansion, surrounded by memories of my ancestors, I suddenly heard a gentle buzz coming from the watch. I looked at it and saw that it was vibrating with an unknown number flashing on the screen. I hesitated for a moment before answering it, wondering who could be calling me from such an ancient device.\n\n\"Hello?\" I said, curiosity getting the better of me.\n\nThere was a pause on the other end of the line, and then a soft voice spoke up: \"Grandfather? It's me, Grandma. I'm so glad you answered.\" \n\n"
     }
 ]

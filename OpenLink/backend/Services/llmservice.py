@@ -1,7 +1,5 @@
 
 from langchain_community.llms import Ollama
-
-from ShortTermMemoryService import ShortTermMemoryService
 import sys, os
         
 
@@ -9,9 +7,10 @@ import sys, os
 
 class LLMService:
     llm = "llama3.1:8b"
+    short_term_memory_service = None
 
-    def __init__(self):
-        self.short_term_memory_service = ShortTermMemoryService()
+    def __init__(self, short_term_memory_service):
+        self.short_term_memory_service = short_term_memory_service
         self.chat_history = ""
 
     @property
@@ -28,12 +27,9 @@ class LLMService:
         return response
     
     def query_llm(self, question):
-        sys.path.append(os.path.join(os.getcwd(), "backend", "Services"))
-
         self.short_term_memory_service.create_json(question, "User")
 
-        path = os.path.join(os.getcwd(), "backend", "Data", "ShortTermMemory.json")
-        path = "../Data/ShortTermMemory.json"
+        path = "Data/ShortTermMemory.json" # from servers dir (backend folder)
 
         with open(path, 'r') as file:
             json_data = file.read()
