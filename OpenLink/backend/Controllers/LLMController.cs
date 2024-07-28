@@ -7,22 +7,30 @@ namespace OpenLink.Controllers
     [Route("[controller]")]
     public class LLMController : ControllerBase
     {
-        private readonly LLMService llmService;
+        private readonly LLMService _llmService;
 
-        public LLMController()
+        public LLMController(LLMService llmService)
         {
-            llmService = new LLMService();
+            _llmService = llmService;
+        }
+
+        public class QueryRequest
+        {
+            public string Query { get; set; }
         }
 
         [HttpPost("query")]
-        public IActionResult Query([FromBody] string query)
+        public IActionResult Query([FromBody] QueryRequest request)
         {
-            string response = llmService.QueryLLM(query);
+            if (request == null || string.IsNullOrEmpty(request.Query))
+            {
+                return BadRequest("Query is required");
+            }
+
+            string response = _llmService.QueryLLM(request.Query);
             return Ok(response);
         }
 
-        // This method can be used for console interaction, but typically,
-        // web applications wouldn't use such methods.
         public void StartConversationMode()
         {
             string? query = "";
@@ -33,20 +41,19 @@ namespace OpenLink.Controllers
                 query = Console.ReadLine();
                 if (query != "exit")
                 {
-                    string response = llmService.QueryLLM(query);
+                    string response = _llmService.QueryLLM(query);
                     Console.WriteLine();
                     Console.WriteLine("Response:");
                     Console.WriteLine(response);
                 }
             }
-            Console.WriteLine(llmService.GetChatHistory());
+            Console.WriteLine(_llmService.GetChatHistory());
         }
 
-        // The main method can be used to run console mode for testing purposes.
         public static void Main()
         {
-            LLMController controller = new LLMController();
-            controller.StartConversationMode();
+           // LLMController controller = new LLMController();
+           // controller.StartConversationMode();
         }
     }
 }
