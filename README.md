@@ -38,7 +38,7 @@ This project aims to develop an infrastructure for a Large Language Model (LLM) 
 - **Description:** A temporary memory that keeps track of information during an ongoing conversation.
 - **Functionality:**
   - [x] **Contextual Understanding:** Keeps track of the conversation's topic and recent exchanges to provide relevant answers.
-  - [] **Temporary Notes:** Ability to store and use temporary notes that may be useful during an ongoing session but don't need long-term storage.
+  - [ ] **Temporary Notes:** Ability to store and use temporary notes that may be useful during an ongoing session but don't need long-term storage.
 
 ## Tool Integrations
 
@@ -65,7 +65,7 @@ This project aims to develop an infrastructure for a Large Language Model (LLM) 
 
 2. **Frontend:**
    - **User Interface:** Development of an intuitive interface where users can interact with the LLM and manage their settings.
-     - [ ] **Dekstop application** Through an desktop app (Tauri)
+     - [x] **Web browser UI** 
 
 
 
