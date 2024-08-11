@@ -1,8 +1,7 @@
 
 from langchain_community.llms import Ollama
 import sys, os
-from ShortTermMemoryService import ShortTermMemoryService
-from LongTermMemoryService import LongTermMemoryService
+
 
         
 
@@ -54,7 +53,15 @@ class LLMService:
 
         self.chat_history = self.short_term_memory_service.get_max_tokens() + "User: " + "\n" + question
 
-        result = self.askLLMAndGetResponse(self.chat_history + "**DONT INCLUDE YOUR ANSWER WITH 'LLM(YOU):', AND NO NEED TO COMMENT ABOUT THE HISTORY OR THIS. IMPORTANT: JUST CONTINUE WITH YOUR ANSWER BASED ON THE HISTORY OF THIS CONVERSATION LIKE A USUAL CONVERSATION AND ANSWER THE QUESTION:**" + question, self.LLM)
+        memory = self.long_term_memory_service.get_relevant_memories(question)
+        
+        long_term_memory_query = '''
+        You can mention your memory only if the memory is relevant to the latest query or the conversation as a whole, otherwise you can ignore the memory. 
+        The following json contains the memories: ''' + memory
+
+        
+
+        result = self.askLLMAndGetResponse(self.chat_history + ".\n" +  long_term_memory_query + "\n" + "**DONT INCLUDE YOUR ANSWER WITH 'LLM(YOU):', AND NO NEED TO COMMENT ABOUT THE HISTORY OR THIS. IMPORTANT: JUST CONTINUE WITH YOUR ANSWER BASED ON THE HISTORY OF THIS CONVERSATION LIKE A USUAL CONVERSATION AND ANSWER THE QUESTION:**" + question, self.LLM)
 
         self.short_term_memory_service.create_json(result, "LLM(you)")
         self.chat_history = self.short_term_memory_service.get_max_tokens()

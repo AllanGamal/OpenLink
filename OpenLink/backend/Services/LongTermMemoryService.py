@@ -1,12 +1,13 @@
 from langchain_chroma import Chroma
 from langchain.docstore.document import Document
 from langchain_huggingface import HuggingFaceEmbeddings
+import json
 
 
 
 class LongTermMemoryService:
 
-    vector_directory = "Data/VectorStore"
+    vector_directory = "Services/Data/VectorStore"
     embedding_function = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-large")
 
     def __init__(self):
@@ -43,10 +44,27 @@ class LongTermMemoryService:
              filter=filter_condition
             ) 
         
-        return relevant_documents
+        # loop through the relevant documents and return the page content for every memory in a json format. memory1: ...
+        memories = {}
+        for i, doc in enumerate(relevant_documents):
+            memory_key = f"memory{i+1}"
+            date_only = doc.metadata["timestamp"].split("T")[0]
+            memories[memory_key] = {
+                "content": doc.page_content,
+                "date": date_only
+            }
+
+        print(json.dumps(memories, indent=1))
+
+        return json.dumps(memories, indent=1)
+        
+        
+        
     
     def improve_semantic_of_query(self, query: str):
         return self.embedding_function.embed(query)
+    
+    
     
     
         
@@ -71,4 +89,5 @@ ltms.save_as_longterm_memory("I am a data scientist", "2022-03-01T12:05", ["tech
 print(ltms.get_relevant_memories("I am a student", ["data scientist", "data scientist", "data scientist"]))
 print(ltms.get_relevant_memories("I am a student"))
 '''
+
 
