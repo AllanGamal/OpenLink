@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from Services.LLMService import LLMService
 from Services.ShortTermMemoryService import ShortTermMemoryService
+from Services.LongTermMemoryService import LongTermMemoryService
 from Controllers.LLMController import LLMController
 import os
 
@@ -9,7 +10,8 @@ app = Flask(__name__)
 CORS(app)  # Allow all domains
 
 short_term_memory_service = ShortTermMemoryService()
-llm_service = LLMService(short_term_memory_service)
+long_term_memory_service = LongTermMemoryService()
+llm_service = LLMService(short_term_memory_service, long_term_memory_service)
 llm_controller = LLMController(llm_service)
 
 @app.route('/LLM/query', methods=['POST'])
