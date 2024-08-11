@@ -14,7 +14,7 @@ class LongTermMemoryService:
     
     def save_as_longterm_memory(self, memory: str, timestamp: str, list_of_tags: list[str]) -> None:
 
-        documents = [Document(page_content=memory, metadata={"timestamp": timestamp, "tag1": list_of_tags[0], "tag2": list_of_tags[1], "tag3": list_of_tags[3]})]
+        documents = [Document(page_content=memory, metadata={"timestamp": timestamp, "tag1": list_of_tags[0], "tag2": list_of_tags[1], "tag3": list_of_tags[2]})]
 
         Chroma.from_documents(
         documents,
@@ -22,31 +22,48 @@ class LongTermMemoryService:
         persist_directory=self.vector_directory, # save in chromadb folder
     )
         
-    def get_relevant_memories(self, query: str):
+    def get_relevant_memories(self, query: str, list_of_tags: list[str] = None):
         database = Chroma(persist_directory=self.vector_directory, embedding_function=self.embedding_function) # load from the saved folder
+
+        filter_condition = {}
+
+        if (list_of_tags):
+            filter_condition = filter_condition = {
+            "$or": [
+                {"tag1": {"$in": list_of_tags}},
+                {"tag2": {"$in": list_of_tags}},
+                {"tag3": {"$in": list_of_tags}}
+            ]
+        }
 
         relevant_documents = database.similarity_search(
             query="I am a student",
             k=5,
-            filter={"tags": {"$in": ["student"]}} # filter by tag
+             filter=filter_condition
             ) 
         
 
         return relevant_documents
+    
+    
         
 
 
 
 ltms = LongTermMemoryService()
+
+# Current memories saved in the database to test the get_relevant_memories function
 '''
-ltms.save_as_longterm_memory("I am a student", "2022-03-01T12:00", ["student", "education"])
-ltms.save_as_longterm_memory("I am a teacher", "2022-03-01T12:01", ["teacher", "education"])
-ltms.save_as_longterm_memory("I am a doctor", "2022-03-01T12:02", ["doctor", "healthcare"])
-ltms.save_as_longterm_memory("I am a nurse", "2022-03-01T12:03", ["nurse", "healthcare"])
-ltms.save_as_longterm_memory("I am a software engineer", "2022-03-01T12:04", ["software engineer", "technology"])
-ltms.save_as_longterm_memory("I am a data scientist", "2022-03-01T12:05", ["data scientist", "technology"])
-ltms.save_as_longterm_memory("I am a data scientist", "2022-03-01T12:05", ["technology"])
+ltms.save_as_longterm_memory("I am a student", "2022-03-01T12:00", ["student", "education", "technology"])
+ltms.save_as_longterm_memory("I am a teacher", "2022-03-01T12:01", ["teacher", "education", "technology"])
+ltms.save_as_longterm_memory("I am a doctor", "2022-03-01T12:02", ["doctor", "healthcare", "technology"])
+ltms.save_as_longterm_memory("I am a nurse", "2022-03-01T12:03", ["nurse", "healthcare", "technology"])
+ltms.save_as_longterm_memory("I am a software engineer", "2022-03-01T12:04", ["software engineer", "technology", "education"])
+ltms.save_as_longterm_memory("I am a data scientist", "2022-03-01T12:05", ["data scientist", "technology", "education"])
+ltms.save_as_longterm_memory("I am a data scientist", "2022-03-01T12:05", ["technology", "education", "data scientist"])
 '''
 
+
+print(ltms.get_relevant_memories("I am a student", ["data scientist", "data scientist", "data scientist"]))
 print(ltms.get_relevant_memories("I am a student"))
 
