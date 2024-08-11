@@ -3,6 +3,7 @@ from langchain.docstore.document import Document
 from langchain_huggingface import HuggingFaceEmbeddings
 
 
+
 class LongTermMemoryService:
 
     vector_directory = "Data/VectorStore"
@@ -37,13 +38,15 @@ class LongTermMemoryService:
         }
 
         relevant_documents = database.similarity_search(
-            query="I am a student",
+            query=query,
             k=5,
              filter=filter_condition
             ) 
         
-
         return relevant_documents
+    
+    def improve_semantic_of_query(self, query: str):
+        return self.embedding_function.embed(query)
     
     
         
@@ -63,7 +66,9 @@ ltms.save_as_longterm_memory("I am a data scientist", "2022-03-01T12:05", ["data
 ltms.save_as_longterm_memory("I am a data scientist", "2022-03-01T12:05", ["technology", "education", "data scientist"])
 '''
 
-
+# Test the get_relevant_memories function
+'''
 print(ltms.get_relevant_memories("I am a student", ["data scientist", "data scientist", "data scientist"]))
 print(ltms.get_relevant_memories("I am a student"))
+'''
 
