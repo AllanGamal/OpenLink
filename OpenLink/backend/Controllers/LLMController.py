@@ -5,7 +5,7 @@ class LLMController:
     def __init__(self, llm_service):
         self.llm_service = llm_service
 
-    def start_conversation_mode(self, question):
+    def start_conversation_mode(self, question: str) -> str:
         print("--------------------------------------")
         print("Query:")
         print(question)

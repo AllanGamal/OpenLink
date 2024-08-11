@@ -8,9 +8,11 @@ import sys, os
 class LLMService:
     llm = "llama3.1:8b"
     short_term_memory_service = None
+    long_term_memory_service = None
 
-    def __init__(self, short_term_memory_service):
+    def __init__(self, short_term_memory_service, long_term_memory_service):
         self.short_term_memory_service = short_term_memory_service
+        self.long_term_memory_service = long_term_memory_service
         self.chat_history = ""
 
     @property
