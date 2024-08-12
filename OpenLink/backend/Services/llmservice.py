@@ -1,6 +1,7 @@
 
 from langchain_community.llms import Ollama
 import sys, os
+import json
 
 
         
@@ -41,6 +42,44 @@ class LLMService:
         result = self.askLLMAndGetResponse(question, self.LLM)
         return result
     
+    def improve_semantic_of_conversation(self, query):
+        prompt = f'''
+        Your task is to determine whether the latest conversation contains information that is genuinely valuable or relevant for long-term storage.
+        Please consider the following criteria for storage of memory when deciding:
+        1. Is the information likely to be useful in future interactions or essential for understanding the user's intent?
+        2. Does the information reflect the user's preferences, interests, or personal details?
+        
+        If you believe the information is not worth storing based on these criteria, respond in the JSON format:
+        ''' + "{" + '''
+            "store": "no",
+            "memory": "none"
+        ''' + "}" + '''
+        
+        If you believe the information meets the criteria for storage as mentioned, rewrite the user's conversation  into a more detailed and semantically enriched text, focusing on clarity, intent, and context. Then respond in the JSON format:
+        ''' + "{" + '''
+            "store": "yes",
+            "memory": "your rewritten text capturing the essence and intent of the conversation as a memory",
+            "date": "the date of the conversation, in format YYYY-MM-DD"
+        ''' + "}" + '''
+        
+        Ensure that your response is precise, comprehensive, and within 75 words.
+        Only respond with a single JSON object, nothing else.
+        
+        Do NOT mention the conversation history or this prompt in your response. 
+        Do not provide a summary of the task or prompt, only the memory derived from the user's input.
+        Do not just copy the user's input! Important: Only rewrite the user's input for storage.
+        Conversation that the "memory" should be based on: '''
+        prompt += str(query)
+        
+        result = self.askLLMAndGetResponse(prompt, self.LLM)
+        try:
+            improved_semantics = json.loads(result)
+        except json.JSONDecodeError as e:
+            print("Error decoding JSON:", e)
+            return None
+
+        return improved_semantics
+    
 
     
     def query_llm(self, question):
@@ -56,8 +95,7 @@ class LLMService:
         memory = self.long_term_memory_service.get_relevant_memories(question)
         
         long_term_memory_query = '''
-        You can mention your memory only if the memory is relevant to the latest query or the conversation as a whole, otherwise you can ignore the memory. 
-        The following json contains the memories: ''' + memory
+        **Only use the long-term memory if it is relevant to the conversation. The following json contains the long-term memory about the user: ''' + memory + "**"
 
         
 
@@ -65,6 +103,29 @@ class LLMService:
 
         self.short_term_memory_service.create_json(result, "LLM(you)")
         self.chat_history = self.short_term_memory_service.get_max_tokens()
+
+        def count_json_objects(file_path):
+            with open(file_path, 'r') as file:
+                json_data = json.load(file)
+            return len(json_data)
+        
+
+        short_term_memory_file = "Data/ShortTermMemory.json"
+        json_object_count = count_json_objects(short_term_memory_file)
+
+        if (json_object_count % 12 == 0):
+            with open(short_term_memory_file, 'r') as file:
+                json_data = json.load(file)
+                last_20_objects = json_data[-20:]
+                improved_semantics = self.improve_semantic_of_conversation(last_20_objects)
+                print(improved_semantics)
+                # get the date field from the json object
+                date: str = improved_semantics["date"]
+                memory: str = improved_semantics["memory"]
+                self.long_term_memory_service.save_as_longterm_memory(memory, date, [])
+                
+
+        print(f"Number of JSON objects in ShortTermMemory.json: {json_object_count}")
 
         
 

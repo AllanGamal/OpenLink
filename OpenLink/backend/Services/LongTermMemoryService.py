@@ -16,13 +16,18 @@ class LongTermMemoryService:
     
     def save_as_longterm_memory(self, memory: str, timestamp: str, list_of_tags: list[str]) -> None:
 
-        documents = [Document(page_content=memory, metadata={"timestamp": timestamp, "tag1": list_of_tags[0], "tag2": list_of_tags[1], "tag3": list_of_tags[2]})]
+        documents = []
+        if list_of_tags:
+            documents = [Document(page_content=memory, metadata={"timestamp": timestamp, "tag1": list_of_tags[0], "tag2": list_of_tags[1], "tag3": list_of_tags[2]})]
+        else:
+            documents = [Document(page_content=memory, metadata={"timestamp": timestamp})]
 
         Chroma.from_documents(
         documents,
         self.embedding_function,
         persist_directory=self.vector_directory, # save in chromadb folder
     )
+        
         
     def get_relevant_memories(self, query: str, list_of_tags: list[str] = None):
         database = Chroma(persist_directory=self.vector_directory, embedding_function=self.embedding_function) # load from the saved folder
@@ -59,10 +64,13 @@ class LongTermMemoryService:
         return json.dumps(memories, indent=1)
         
         
-        
     
-    def improve_semantic_of_query(self, query: str):
-        return self.embedding_function.embed(query)
+    
+
+
+
+
+        
     
     
     
