@@ -23,9 +23,9 @@ This project aims to develop an infrastructure for a Large Language Model (LLM) 
 ### 1. Long-Term Memory
 - **Description:** Stores important information over long periods, based on the LLM's assessment of valuable data.
 - **Functionality:**
-  - [ ] **Summaries:** Generates and stores summaries of important conversations.
-  - [ ] **Indexing:** Indexes and stores information in a semantically searchable database.
-  - [ ] **Access:** Ability to recall previous conversations to provide context in future interactions.
+  - [x] **Summaries:** Generates and stores summaries of important conversations.
+  - [x] **Indexing:** Indexes and stores information in a semantically searchable database.
+  - [x] **Access:** Ability to recall previous conversations to provide context in future interactions.
 
 ### 2. General Memory
 - **Description:** A dynamic memory that tracks user preferences, habits, and long-term goals.
