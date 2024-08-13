@@ -26,7 +26,7 @@ class LLMService:
     def LLM(self, value):
         self.__class__.llm = value
 
-    def askLLMAndGetResponse(self, question, llm):
+    def askLLMAndGetResponse(self, question, llm = LLM):
         llm = Ollama(model=llm)
         response = llm.invoke(question)
         return response
