@@ -1,9 +1,0 @@
-namespace OpenLink.Models
-{
-    public class LongTermMemoryModel
-    {
-        public int Id { get; set; }
-        public string Data { get; set; }
-    }
-}
-
