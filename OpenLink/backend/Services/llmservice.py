@@ -2,6 +2,7 @@
 from langchain_community.llms import Ollama
 import sys, os
 import json
+from Services.reminders.reminders import Reminders
 
 
         
@@ -12,10 +13,12 @@ class LLMService:
     llm = "llama3.1:8b"
     short_term_memory_service = None
     long_term_memory_service = None
+    reminders = None
 
     def __init__(self, short_term_memory_service, long_term_memory_service):
         self.short_term_memory_service = short_term_memory_service
         self.long_term_memory_service = long_term_memory_service
+        self.reminders = Reminders()
         self.chat_history = ""
 
     @property
@@ -83,6 +86,8 @@ class LLMService:
 
     
     def query_llm(self, question):
+        '''
+        '''
         self.short_term_memory_service.create_json(question, "User")
 
         path = "Data/ShortTermMemory.json" # from servers dir (backend folder)
@@ -98,8 +103,11 @@ class LLMService:
         **Only use the long-term memory if it is relevant to the conversation. The following json contains the long-term memory about the user: ''' + memory + "**"
 
         
+        reminder_template = self.reminders.create_reminder_prompt_template("The user asked me to remind them to buy milk on the 20th of December, 2024. Today is the 23rd of august, 2024.")
 
-        result = self.askLLMAndGetResponse(self.chat_history + ".\n" +  long_term_memory_query + "\n" + "**DONT INCLUDE YOUR ANSWER WITH 'LLM(YOU):', AND NO NEED TO COMMENT ABOUT THE HISTORY OR THIS. IMPORTANT: JUST CONTINUE WITH YOUR ANSWER BASED ON THE HISTORY OF THIS CONVERSATION LIKE A USUAL CONVERSATION AND ANSWER THE QUESTION:**" + question, self.LLM)
+
+        # result = self.askLLMAndGetResponse(self.chat_history + ".\n" +  long_term_memory_query + "\n" + "**DONT INCLUDE YOUR ANSWER WITH 'LLM(YOU):', AND NO NEED TO COMMENT ABOUT THE HISTORY OR THIS. IMPORTANT: JUST CONTINUE WITH YOUR ANSWER BASED ON THE HISTORY OF THIS CONVERSATION LIKE A USUAL CONVERSATION AND ANSWER THE QUESTION:**" + question, self.LLM)
+        result = self.askLLMAndGetResponse(reminder_template, self.LLM)
 
         self.short_term_memory_service.create_json(result, "LLM(you)")
         self.chat_history = self.short_term_memory_service.get_max_tokens()

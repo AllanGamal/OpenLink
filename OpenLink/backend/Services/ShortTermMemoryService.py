@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import List, Dict
 
 class ShortTermMemoryModel:
-    MaxTokens = 1000  # Du kan anpassa detta värde baserat på dina behov
+    MaxTokens = 1000  
 
     def __init__(self, id: str, msg: str):
         self.id = id
@@ -15,7 +15,7 @@ class ShortTermMemoryService:
     #FilePath = "backend/Data/ShortTermMemory.json"
 
     def __init__(self):
-        # Antagande om konstruktionslogik om sådan finns
+        
         pass
 
     def create_json(self, msg: str, sender: str):

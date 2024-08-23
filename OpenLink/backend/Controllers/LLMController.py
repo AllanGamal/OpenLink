@@ -1,3 +1,4 @@
+
 class LLMController:
 
     llm_service = None
@@ -6,6 +7,8 @@ class LLMController:
         self.llm_service = llm_service
 
     def start_conversation_mode(self, question: str) -> str:
+        
+        
         print("--------------------------------------")
         print("Query:")
         print(question)
@@ -15,3 +18,4 @@ class LLMController:
         print("Response:")
         print(response)
         return response
+        
