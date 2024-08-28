@@ -44,6 +44,31 @@ class LLMService:
         result = self.get_llm_response(question, self.LLM)
         return result
     
+    def analyze_query_for_action(self, query: str) -> str:
+        question = f'''
+        input: {query}. 
+        Based on the input, the LLM, you, should determine what action to take. 
+        The action can be:
+        - "store_memory": to store the conversation as a memory. Memory and reminders are NOT the same thing! Memory reflect the user's preferences, interests, or personal details
+        - "create_reminder": to remind the user of something
+        - "get_reminder": Use this action if the input asks for retrieving existing reminders.
+
+
+        Your task is to determine which actions to take (true or false) based on the input (the end of the conversation).
+        Respond with the action in the JSON format:
+        ''' + "{" + '''
+            "store_memory": *A bool that determines whether to store the conversation as a memory, memory reflect the user's preferences, interests, or personal details*,
+            "create_reminder": *A bool that determines whether to create a reminder*,
+            "get_reminder": *A bool that determines whether to get the reminders*
+        ''' + "}"
+
+        result = self.get_llm_response(question, self.LLM)
+        return result
+    
+    
+      
+
+    
     def analyze_conversation_for_storage(self, query):
         prompt = f'''
         Your task is to determine whether the latest conversation contains information that is genuinely valuable or relevant for long-term storage.
