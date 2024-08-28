@@ -1,4 +1,3 @@
-
 from langchain_community.llms import Ollama
 import sys, os
 import json
@@ -29,12 +28,12 @@ class LLMService:
     def LLM(self, value):
         self.__class__.llm = value
 
-    def askLLMAndGetResponse(self, question, llm = LLM):
+    def get_llm_response(self, question, llm = LLM):
         llm = Ollama(model=llm)
         response = llm.invoke(question)
         return response
     
-    def improve_semantic_of_query(self, query: str) -> str:
+    def improve_query_semantics(self, query: str) -> str:
         question = f'''
         input: {query}. 
         Take the user’s input before this sentence and rewrite it into a more detailed and semantically enriched query. 
@@ -42,10 +41,10 @@ class LLMService:
         The goal is to capture the full meaning and nuances of the user’s original request to ensure the best possible response. 
         Keep in below 50 words. And do NOT type anything other than the rewritten query. And dont use "I" or "me" in the query, it should be general.
         '''
-        result = self.askLLMAndGetResponse(question, self.LLM)
+        result = self.get_llm_response(question, self.LLM)
         return result
     
-    def improve_semantic_of_conversation(self, query):
+    def analyze_conversation_for_storage(self, query):
         prompt = f'''
         Your task is to determine whether the latest conversation contains information that is genuinely valuable or relevant for long-term storage.
         Please consider the following criteria for storage of memory when deciding:
@@ -74,7 +73,7 @@ class LLMService:
         Conversation that the "memory" should be based on: '''
         prompt += str(query)
         
-        result = self.askLLMAndGetResponse(prompt, self.LLM)
+        result = self.get_llm_response(prompt, self.LLM)
         try:
             improved_semantics = json.loads(result)
         except json.JSONDecodeError as e:
@@ -85,7 +84,7 @@ class LLMService:
     
 
     
-    def query_llm(self, question):
+    def process_user_query(self, question):
         '''
         '''
         self.short_term_memory_service.create_json(question, "User")
@@ -106,8 +105,8 @@ class LLMService:
         reminder_template = self.reminders.create_reminder_prompt_template("The user asked me to remind them to buy milk on the 20th of December, 2024. Today is the 23rd of august, 2024.")
 
 
-        # result = self.askLLMAndGetResponse(self.chat_history + ".\n" +  long_term_memory_query + "\n" + "**DONT INCLUDE YOUR ANSWER WITH 'LLM(YOU):', AND NO NEED TO COMMENT ABOUT THE HISTORY OR THIS. IMPORTANT: JUST CONTINUE WITH YOUR ANSWER BASED ON THE HISTORY OF THIS CONVERSATION LIKE A USUAL CONVERSATION AND ANSWER THE QUESTION:**" + question, self.LLM)
-        result = self.askLLMAndGetResponse(reminder_template, self.LLM)
+        # result = self.get_llm_response(self.chat_history + ".\n" +  long_term_memory_query + "\n" + "**DONT INCLUDE YOUR ANSWER WITH 'LLM(YOU):', AND NO NEED TO COMMENT ABOUT THE HISTORY OR THIS. IMPORTANT: JUST CONTINUE WITH YOUR ANSWER BASED ON THE HISTORY OF THIS CONVERSATION LIKE A USUAL CONVERSATION AND ANSWER THE QUESTION:**" + question, self.LLM)
+        result = self.get_llm_response(reminder_template, self.LLM)
 
         self.short_term_memory_service.create_json(result, "LLM(you)")
         self.chat_history = self.short_term_memory_service.get_max_tokens()
@@ -125,7 +124,7 @@ class LLMService:
             with open(short_term_memory_file, 'r') as file:
                 json_data = json.load(file)
                 last_20_objects = json_data[-20:]
-                improved_semantics = self.improve_semantic_of_conversation(last_20_objects)
+                improved_semantics = self.improve_query_semantics(last_20_objects)
                 print(improved_semantics)
                 # get the date field from the json object
                 date: str = improved_semantics["date"]

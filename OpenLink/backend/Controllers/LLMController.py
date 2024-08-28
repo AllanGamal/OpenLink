@@ -13,7 +13,7 @@ class LLMController:
         print("Query:")
         print(question)
       
-        response = self.llm_service.query_llm(question)
+        response = self.llm_service.process_user_query(question)
         print("")
         print("Response:")
         print(response)
