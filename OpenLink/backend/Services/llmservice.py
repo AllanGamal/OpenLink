@@ -60,9 +60,12 @@ class LLMService:
             "store_memory": *A bool that determines whether to store the conversation as a memory, memory reflect the user's preferences, interests, or personal details*,
             "create_reminder": *A bool that determines whether to create a reminder*,
             "get_reminder": *A bool that determines whether to get the reminders*
-        ''' + "}"
+        ''' + "}" + '''
+        '''
 
         result = self.get_llm_response(question, self.LLM)
+        json_result = "Extract only the json-object from the response, and return nothing else."
+        result = self.get_llm_response(result + " " + json_result, self.LLM)
         return result
     
     
@@ -113,6 +116,10 @@ class LLMService:
         '''
         '''
         self.short_term_memory_service.create_json(question, "User")
+
+        #analyze the query for action
+        action_analysis = self.analyze_query_for_action(question)
+        print("action: " + action_analysis)
 
         path = "Data/ShortTermMemory.json" # from servers dir (backend folder)
 
