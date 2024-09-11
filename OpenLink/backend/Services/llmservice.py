@@ -64,8 +64,9 @@ class LLMService:
         '''
 
         result = self.get_llm_response(question, self.LLM)
-        json_result = "Extract only the json-object from the response, and return nothing else."
+        json_result = "Extract only the json-object from the response, and return nothing else. Start with: '''{''' and end with '''}'''."
         result = self.get_llm_response(result + " " + json_result, self.LLM)
+        print("result: " + result)  
         return result
     
     
@@ -120,6 +121,25 @@ class LLMService:
         #analyze the query for action
         action_analysis = self.analyze_query_for_action(question)
         print("action: " + action_analysis)
+        action_analysis = json.loads(action_analysis)
+
+        store_memory: bool = False
+        get_reminder: bool = False
+
+        reminder_list = []
+        reminder_template = ""
+
+
+        if action_analysis.get("store_memory") == "true":
+            store_memory = True
+
+        if action_analysis.get("create_reminder") == "true":
+            reminder_template = self.reminders.create_reminder_prompt_template(question)
+            print("reminder_template: " + reminder_template)
+
+        if action_analysis.get("get_reminder") == "true":
+            reminder_list = self.reminders.get_reminders()
+
 
         path = "Data/ShortTermMemory.json" # from servers dir (backend folder)
 
@@ -134,7 +154,7 @@ class LLMService:
         **Only use the long-term memory if it is relevant to the conversation. The following json contains the long-term memory about the user: ''' + memory + "**"
 
         
-        reminder_template = self.reminders.create_reminder_prompt_template("The user asked me to remind them to buy milk on the 20th of December, 2024. Today is the 23rd of august, 2024.")
+        #reminder_template = self.reminders.create_reminder_prompt_template("The user asked me to remind them to buy milk on the 20th of December, 2024. Today is the 23rd of august, 2024.")
 
 
         # result = self.get_llm_response(self.chat_history + ".\n" +  long_term_memory_query + "\n" + "**DONT INCLUDE YOUR ANSWER WITH 'LLM(YOU):', AND NO NEED TO COMMENT ABOUT THE HISTORY OR THIS. IMPORTANT: JUST CONTINUE WITH YOUR ANSWER BASED ON THE HISTORY OF THIS CONVERSATION LIKE A USUAL CONVERSATION AND ANSWER THE QUESTION:**" + question, self.LLM)
@@ -152,7 +172,8 @@ class LLMService:
         short_term_memory_file = "Data/ShortTermMemory.json"
         json_object_count = count_json_objects(short_term_memory_file)
 
-        if (json_object_count % 12 == 0):
+        if (json_object_count % 12 == 0 and store_memory):
+            store_memory = False
             with open(short_term_memory_file, 'r') as file:
                 json_data = json.load(file)
                 last_20_objects = json_data[-20:]

@@ -13,7 +13,7 @@ class Reminders:
 
     def create_reminder_prompt_template(self, conversation):
         templats: str = '''
-        Based on the conversation given to you, create a reminder for the user.
+        Based on the end of the conversation given to you, create a reminder for the user.
         The reminder should be in the following json-format:
         ''' + "{" + '''
         "reminder": "*The description of the reminder, one sentence max, the date should not be included here*",
@@ -21,7 +21,7 @@ class Reminders:
         "date": "*The date of the reminder, YYYY-MM-DD*"
         ''' + "}" + '''
         You must only response with the json-format above.
-        The conversation that you should base the reminder on is the following:
+        The end of the conversation that you should base the reminder on is the following:
 
         '''
         question = templats + conversation

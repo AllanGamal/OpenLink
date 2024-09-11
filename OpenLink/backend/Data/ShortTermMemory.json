@@ -54,5 +54,41 @@
     {
         "Id": "2024-08-28T14:25:0",
         "Msg": "LLM(you): \n {\n    \"reminder\": \"Buy milk\",\n    \"created\": \"2024-08-23\",\n    \"date\": \"2024-12-20\"\n} \n\n"
+    },
+    {
+        "Id": "2024-08-29T14:54:0",
+        "Msg": "User: \n can u remind me to buy some shoes tomorrow night? \n\n"
+    },
+    {
+        "Id": "2024-08-29T14:54:1",
+        "Msg": "LLM(you): \n {\n    \"reminder\": \"Buy milk\",\n    \"created\": \"2024-08-23\",\n    \"date\": \"2024-12-20\"\n} \n\n"
+    },
+    {
+        "Id": "2024-08-29T14:59:0",
+        "Msg": "User: \n can u remind me to buy some shoes tomorrow night on the 20th of December, 2024. Today is the 23rd of august, 2024 \n\n"
+    },
+    {
+        "Id": "2024-08-29T14:59:1",
+        "Msg": "User: \n The user asked me to remind them to buy milk on the 20th of December, 2024. Today is the 23rd of august, 2024. \n\n"
+    },
+    {
+        "Id": "2024-08-29T15:01:0",
+        "Msg": "User: \n The user asked me to remind them to buy milk on the 20th of December, 2024. Today is the 23rd of august, 2024. \n\n"
+    },
+    {
+        "Id": "2024-08-29T15:07:0",
+        "Msg": "User: \n -------------------------------------- Query: The user asked me to remind them to buy milk on the 20th of December, 2024. Today is the 23rd of august, 2024. action: ```json {   \"store_memory\": false,   \"create_reminder\": true,   \"get_reminder\": false } ``` [2024-08-29 15:01:34,917] ERROR in app: Exception on /LLM/query [POST] Traceback (most recent call last):   File \"/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/venv/lib/python3.11/site-packages/flask/app.py\", line 1473, in wsgi_app     response = self.full_dispatch_request()                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^   File \"/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/venv/lib/python3.11/site-packages/flask/app.py\", line 882, in full_dispatch_request     rv = self.handle_user_exception(e)          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   File \"/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/venv/lib/python3.11/site-packages/flask_cors/extension.py\", line 178, in wrapped_function     return cors_after_request(app.make_response(f(*args, **kwargs)))                                                 ^^^^^^^^^^^^^^^^^^   File \"/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/venv/lib/python3.11/site-packages/flask/app.py\", line 880, in full_dispatch_request     rv = self.dispatch_request()          ^^^^^^^^^^^^^^^^^^^^^^^   File \"/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/venv/lib/python3.11/site-packages/flask/app.py\", line 865, in dispatch_request     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   File \"/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/backend/server.py\", line 23, in recieve_question     'response':  f'{llm_controller.start_conversation_mode(query)}'                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   File \"/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/backend/Controllers/LLMController.py\", line 16, in start_conversation_mode     response = self.llm_service.process_user_query(question)                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   File \"/Users/allangamal/Documents/GitHub/OpenLink/OpenLink/backend/Services/LLMService.py\", line 123, in process_user_query     action_analysis = json.loads(action_analysis)                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^   File \"/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/__init__.py\", line 346, in loads     return _default_decoder.decode(s)            ^^^^^^^^^^^^^^^^^^^^^^^^^^   File \"/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/decoder.py\", line 337, in decode     obj, end = self.raw_decode(s, idx=_w(s, 0).end())                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   File \"/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/decoder.py\", line 355, in raw_decode     raise JSONDecodeError(\"Expecting value\", s, err.value) from None json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0) 127.0.0.1 - - [29/Aug/2024 15:01:34] \"POST /LLM/query HTTP/1.1\" 500 - \n\n"
+    },
+    {
+        "Id": "2024-08-29T15:07:1",
+        "Msg": "User: \n The user asked me to remind them to buy milk on the 20th of December, 2024. Today is the 23rd of august, 2024. \n\n"
+    },
+    {
+        "Id": "2024-08-29T15:08:0",
+        "Msg": "User: \n The user asked me to remind them to buy milk on the 20th of December, 2024. Today is the 23rd of august, 2024. \n\n"
+    },
+    {
+        "Id": "2024-08-29T15:08:1",
+        "Msg": "LLM(you): \n  \n\n"
     }
 ]
